@@ -7,6 +7,7 @@ const mapStateToProps = state => ({
   error: state.cart.error,
   user: state.login.user,
   cartItems: state.cart.cartItems,
+  totalPrice: state.cart.totalPrice,
   loader: state.cart.loader
 })
 

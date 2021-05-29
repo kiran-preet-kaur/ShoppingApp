@@ -34,24 +34,23 @@ class Orders extends Component {
   }
 
   componentDidMount() {
-    this.sendOrdersRequest();
+    this.props.getOrders();
   }
 
   render() {
-    const { user } = this.props;
-    const { orders, error, loading } = this.state;
-    if (!user) {
+    const { orders, loading, error } = this.props;
+    if (!localStorage.getItem('token')) {
       return <Redirect to='/login' />
     }
     else if (loading) {
       return <Loader />
     } else if (error) {
-      <div>Error loading this page. Please try again later!</div>
+      return <div>Error loading this page. Please try again later!</div>
     } else if (orders.length < 1) {
-      <div>You have no orders yet.</div>
+      return <div>You have no orders yet.</div>
     } else {
       return (
-        orders && <div>{orders.map((order) => <OrderItem key={order._id} order={order} />)}</div>
+        orders && <><h5 className="center" style={{ marginBottom: "30px" }}>Orders</h5>{orders.map((order) => <OrderItem key={order._id} order={order} />)}</>
       );
     }
   }

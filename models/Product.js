@@ -21,8 +21,16 @@ const ProductSchema = mongoose.Schema({
     required: true
   },
   price: {
+    type: Number,
+    required: true
+  },
+  currency: {
     type: String,
     required: true
+  },
+  qty: {
+    type: Number,
+    default: 1
   },
   date: {
     type: Date,

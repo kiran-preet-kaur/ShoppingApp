@@ -5,41 +5,57 @@ const OrderSchema = mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'users'
   },
-  product: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'products'
-  },
-  productName: {
+  orderItems: [
+    {
+      name: { type: String, required: true },
+      qty: { type: Number, required: true },
+      image: { type: String, required: true },
+      price: { type: Number, required: true },
+      product: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: 'Product',
+      },
+    },
+  ],
+  currency: {
     type: String,
-    required: true
+    default: "INR"
   },
-  qty: {
-    type: Number,
-    default: 1
+  paymentID: {
+    type: String
   },
-  category: {
-    type: String,
-    required: true
-  },
-  price: {
-    type: String,
-    required: true
+  razorpayOrderID: {
+    type: String
   },
   status: {
     type: Number,
     default: 0
   },
-  to_name: {
-    type: String,
-    required: true
-  },
-  to_phone: {
-    type: Number,
-    required: true
-  },
   address: {
-    type: String,
-    required: true
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'address'
+  },
+  totalPrice: {
+    type: Number,
+    required: true,
+    default: 0,
+  },
+  isPaid: {
+    type: Boolean,
+    required: true,
+    default: false,
+  },
+  paidAt: {
+    type: Date,
+  },
+  isDelivered: {
+    type: Boolean,
+    required: true,
+    default: false,
+  },
+  deliveredAt: {
+    type: Date,
   },
   date: {
     type: Date,

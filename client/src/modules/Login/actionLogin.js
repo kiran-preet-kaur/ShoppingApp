@@ -79,3 +79,18 @@ export const registerUser = (name, email, password, phone) => async dispatch => 
     });
   }
 }
+
+
+export const logoutUser = () => dispatch => {
+  try {
+    dispatch({
+      type: 'LOGOUT',
+      payload: 'user logged out'
+    });
+  } catch (err) {
+    dispatch({
+      type: 'USER_FAILURE',
+      payload: err.response.statusText
+    });
+  }
+}

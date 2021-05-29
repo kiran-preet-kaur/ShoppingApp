@@ -54,14 +54,14 @@ router.post(
       return res.status(401).json({ msg: "Not authorised!" });
     }
 
-    const { name, description, category, price } = req.body;
+    const { name, description, category, price, currency, qty, image } = req.body;
 
     try {
       const newProduct = new Product({
         name,
         description,
         category,
-        price,
+        price, currency, qty, image,
         user: req.user.id,
       });
 
@@ -79,13 +79,17 @@ router.post(
 // @desc      Update product
 // @access    Private
 router.put('/:id', auth, async (req, res) => {
-  const { name, description, category } = req.body;
+  const { name, description, category, qty, price, image, currency } = req.body;
 
   // Build product object
   const productFields = {};
   if (name) productFields.name = name;
   if (description) productFields.description = description;
   if (category) productFields.category = category;
+  if (qty) productFields.qty = qty;
+  if (price) productFields.price = price;
+  if (image) productFields.image = image;
+  if (currency) productFields.image = currency;
 
   try {
     let product = await Product.findById(req.params.id);

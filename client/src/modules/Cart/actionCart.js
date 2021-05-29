@@ -103,3 +103,28 @@ export const removeCartItem = (cartID) => async dispatch => {
     });
   }
 }
+
+export const emptyCart = () => async dispatch => {
+  try {
+
+    const res = await axios({
+      method: 'DELETE',
+      url: `/api/cart`,
+      headers: {
+        "x-auth-token": localStorage.getItem('token')
+      }
+    })
+
+    dispatch({
+      type: 'EMPTY_CART',
+      payload: res
+    })
+
+  } catch (err) {
+
+    dispatch({
+      type: 'CART_FAIL',
+      payload: err.response.statusText
+    })
+  }
+}

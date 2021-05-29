@@ -166,4 +166,19 @@ router.delete('/:id', auth, async (req, res) => {
   }
 });
 
+// @route     DELETE api/cart
+// @desc      Delete cart
+// @access    Private
+router.delete('/', auth, async (req, res) => {
+  try {
+
+    await Cart.deleteMany({ user: req.user.id });
+
+    res.json({ msg: 'Cart empty' });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
 module.exports = router;

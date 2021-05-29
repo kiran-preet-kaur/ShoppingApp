@@ -25,7 +25,7 @@ class Listing extends Component {
         const { products } = this.props;
         if (products) {
             return <div className="row"><h2 className="col s12 white text-black center" style={{ marginTop: 0, textTransform: 'uppercase' }}>{this.props.match.params.category || 'ALL'}</h2>
-                {products.map((product) => <ListItem product={product} />)}
+                {products.map((product) => <ListItem key={product._id} product={product} />)}
             </div>
         }
         return (

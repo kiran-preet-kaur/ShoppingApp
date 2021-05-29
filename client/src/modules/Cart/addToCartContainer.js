@@ -5,6 +5,7 @@ import AddToCart from './AddToCart'
 const mapStateToProps = state => ({
   isAuthenticated: state.login.isAuthenticated,
   error: state.cart.error,
+  message: state.cart.message,
   user: state.login.user
 })
 

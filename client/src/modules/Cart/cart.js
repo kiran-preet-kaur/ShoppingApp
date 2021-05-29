@@ -14,20 +14,24 @@ class Cart extends Component {
   }
 
   render() {
-    const { cartItems, loader, removeCartItem } = this.props;
-    if (loader) {
-      return <Loader />
-    } else if (cartItems.length < 1) {
+    const { cartItems, loader, removeCartItem, error, totalPrice } = this.props;
+    if (cartItems.length < 1 || error) {
       return <div>You have no products in your cart.
         Go to <Link to='/listing'>Products</Link> to add.
       </div>
-    }
-    return (
-      <div>
-        <h1 className="center" style={{ fontSize: '40px', marginTop: 0 }}>Shopping Bag</h1>
-        {cartItems.map(cartItem => <CartItem key={cartItem._id} data={cartItem} removeCartItem={removeCartItem} />)}
-      </div>
-    );
+    } else if (loader) {
+      return <Loader />
+    } else
+      return (
+        <div>
+          <h1 className="center" style={{ fontSize: '40px', marginTop: 0 }}>Shopping Bag</h1>
+          {cartItems.map(cartItem => <CartItem key={cartItem._id} data={cartItem} removeCartItem={removeCartItem} />)}
+          <div className="center"><h6>Total amount</h6>
+            <h6>₹ {totalPrice}</h6>
+            <Link to="/shipping"><button className="btn black" style={{ marginTop: "20px" }}>Place Order</button></Link>
+          </div>
+        </div>
+      );
   }
 }
 

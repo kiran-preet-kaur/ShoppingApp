@@ -15,13 +15,14 @@ const Product = (props) => {
         // eslint-disable-next-line
     }, [])
     return (
-        product && <div class="row">
-            <div class="col s12 l5">image</div>
-            <div class="col s12 l7">
+        product && <div className="row">
+            <div className="col s12 l5"><img src={product.image} width="300px" height="300px" /></div>
+            <div className="col s12 l7">
                 <h1 style={{ fontSize: '35px' }}>{product.name}</h1>
-                <div style={{ fontSize: '20px' }}>{product.price}</div>
+                <div style={{ fontSize: '20px' }}>₹ {product.price}</div>
                 <AddToCart productID={product._id} />
-                <div>{product.description}</div>
+                <h5>Description</h5>
+                <div style={{ whiteSpace: "pre-line", marginTop: "5px" }}>{product.description}</div>
             </div>
         </div>
     );

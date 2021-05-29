@@ -1,14 +1,19 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const OrderItem = ({ order }) => {
-  const { _id, productName, category, price, date, status } = order;
+  const { orderItems, _id } = order;
   return (
-    <div className="row">
-      <div className="col s12">
-        <div>{productName}</div>
-        <div>{price}</div>
-      </div>
-
+    <div>
+      {orderItems.map((order) => {
+        return <Link key={order._id} className="row" to={`/order/${_id}`}>
+          <div className="col s5"><img src={order.image} height="125px" width="125px" /></div>
+          <div className="col s7 black-text">
+            <div>{order.name}</div>
+            <div>Qty: {order.qty}</div>
+          </div>
+        </Link>
+      })}
     </div>
   );
 };

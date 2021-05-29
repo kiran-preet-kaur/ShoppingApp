@@ -6,13 +6,19 @@ class Navbar extends Component {
     //     super(...args);
     // }
 
+    componentDidMount() {
+        if (localStorage.getItem('token') && !this.props.user) {
+            this.props.getUser();
+        }
+    }
+
     render() {
         //const { } = this.props;
         return (
             <>
                 <nav className="black">
                     <div className="nav-wrapper">
-                        <Link to="/" className="brand-logo center">Logo</Link>
+                        <Link to="/" className="brand-logo center">ArtsyStore</Link>
                         <div data-target="slide-out" className="sidenav-trigger show-on-large"><i className="material-icons">menu</i></div>
                         <Link to="/profile" className="right"><i className="material-icons left" >account_circle</i></Link>
                         <Link to="/cart" className="right"><i className="material-icons left" >shopping_cart</i></Link>
@@ -35,7 +41,7 @@ class Navbar extends Component {
                                 </div>
                             </li></ul>
                         </li>
-                        <li><Link to="/login" className="sidenav-close"><i className="tiny material-icons" style={{ marginRight: 0 }}>person_add</i>Login</Link></li>
+                        <li>{!localStorage.getItem('token') ? <Link to="/login" className="sidenav-close"><i className="tiny material-icons" style={{ marginRight: 0 }}>person_add</i>Login</Link> : <a onClick={this.props.logoutUser} className="sidenav-close">Logout</a>}</li>
                         <li><Link to="/orders" className="sidenav-close">Your orders</Link></li>
                         <li><Link to="/return-policy" className="sidenav-close">Return policy</Link></li>
                         <li><Link to="/contact-us" className="sidenav-close">Contact Us</Link></li>
