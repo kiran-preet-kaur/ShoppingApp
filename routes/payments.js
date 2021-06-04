@@ -16,6 +16,8 @@ router.post(
   '/verification',
   async (req, res) => {
 
+    console.log("kiran is here in payments verification");
+
     const secret = "bhgy23456";
     const crypto = require('crypto')
 
