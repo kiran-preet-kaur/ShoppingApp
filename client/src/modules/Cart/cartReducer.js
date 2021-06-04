@@ -2,14 +2,13 @@ const initialState = {
   cartItems: [],
   totalPrice: 0,
   error: null,
-  message: null,
   loader: true
 }
 
 const sum = (cartItems) => {
   let sum = 0;
   for (var item of cartItems) {
-    sum += parseFloat(item.productPrice);
+    sum += item.qty * parseFloat(item.productPrice);
   }
   return sum;
 }
@@ -19,8 +18,7 @@ const cartReducer = (state = initialState, action) => {
     case 'ADD_CART_ITEM':
       return {
         ...state,
-        cartItems: [...state.cartItems, action.payload.data],
-        message: true
+        cartItems: [...state.cartItems, action.payload.data]
       }
     case 'GET_CART_ITEMS':
       return {
@@ -45,7 +43,7 @@ const cartReducer = (state = initialState, action) => {
         cartItems: state.cartItems.filter(
           cartItem => cartItem._id !== action.payload.data._id
         ),
-        totalPrice: state.totalPrice - action.payload.data.productPrice
+        totalPrice: state.totalPrice - (action.payload.data.qty * action.payload.data.productPrice)
       }
     case 'EMPTY_CART':
       return {

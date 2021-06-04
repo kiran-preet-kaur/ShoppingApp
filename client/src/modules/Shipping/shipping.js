@@ -41,6 +41,7 @@ class shipping extends Component {
   }
 
   showRazorPay = async () => {
+    let self = this;
     const res = await this.loadScript('https://checkout.razorpay.com/v1/checkout.js')
 
     if (!res) {
@@ -60,7 +61,6 @@ class shipping extends Component {
       }
     })
 
-    console.log(data)
 
     const options = {
       key: 'rzp_test_gDfZhUosqReZUz',
@@ -71,7 +71,7 @@ class shipping extends Component {
       description: 'Thank you for nothing. Please give us some money',
       image: '/logo192.png',
       handler: function (response) {
-        this.props.emptyCart();
+        self.props.emptyCart();
       },
       prefill: {
         name: this.props.user.name,

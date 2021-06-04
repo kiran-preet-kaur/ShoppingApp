@@ -28,7 +28,7 @@ const App = () => {
       <Router>
         <div className='App'>
           <Navbar instance={M} />
-          <div className='container' style={{ paddingTop: '25px' }}>
+          <div className='container' style={{ paddingTop: '25px', paddingBottom: '25px', minHeight: '80vh' }}>
             <Switch>
               <Route exact path='/' component={Home} />
               <Route exact path='/listing/:category' component={Listing} />

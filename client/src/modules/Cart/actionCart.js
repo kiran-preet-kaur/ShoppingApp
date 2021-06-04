@@ -1,34 +1,34 @@
 import axios from 'axios';
 
-export const addItemToCart = (product, qty = '') => async dispatch => {
-  try {
-
-    const res = await axios({
-      method: 'POST',
-      url: '/api/cart',
-      headers: {
-        "x-auth-token": localStorage.getItem('token'),
-        "Content-Type": "application/json"
-      },
-      data: {
-        product: product,
-        qty: qty
-      }
-    })
-
-
+export const addItemToCart = (product, qty = '') => dispatch => new Promise(function (resolve, reject) {
+  axios({
+    method: 'POST',
+    url: '/api/cart',
+    headers: {
+      "x-auth-token": localStorage.getItem('token'),
+      "Content-Type": "application/json"
+    },
+    data: {
+      product: product,
+      qty: qty
+    }
+  }).then(res => {
     dispatch({
-      type: 'ADD_CART_ITEM',
+      type: 'UPDATE_CART_ITEM',
       payload: res
-    });
-  } catch (err) {
-    console.log(err);
+    })
+    resolve();
+  }).catch(err => {
     dispatch({
       type: 'CART_FAIL',
       payload: err.response.statusText
-    });
-  }
-}
+    })
+    reject(err);
+  })
+
+
+
+});
 export const getCartItems = () => async dispatch => {
   try {
 

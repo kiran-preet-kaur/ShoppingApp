@@ -172,7 +172,9 @@ class Login extends Component {
             return <Loader />
         } else {
             return (
-                this.state.screen === 'Login' ? this.LoginForm() : this.RegisterForm()
+                <div style={{ minHeight: '80vh' }}>
+                    {this.state.screen === 'Login' ? this.LoginForm() : this.RegisterForm()}
+                </div>
             );
         }
     }

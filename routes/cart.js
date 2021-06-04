@@ -115,7 +115,6 @@ router.post(
       response._id = item._id;
       response.productID = item.product;
       response.qty = item.qty;
-      console.log(productItem);
       response.productName = productItem.name;
       response.productPrice = productItem.price;
       response.productImage = productItem.image;
@@ -154,12 +153,13 @@ router.put('/:id', auth, async (req, res) => {
 router.delete('/:id', auth, async (req, res) => {
   try {
     let cartItem = await Cart.findById(req.params.id);
+    let productItem = await Product.findById(cartItem.product);
 
     if (!cartItem) return res.status(404).json({ msg: 'Item not found' });
 
     await Cart.findByIdAndRemove(req.params.id);
 
-    res.json({ _id: req.params.id, msg: 'Item removed' });
+    res.json({ _id: req.params.id, qty: cartItem.qty, productPrice: productItem.price, msg: 'Item removed' });
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');

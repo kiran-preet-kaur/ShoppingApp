@@ -23,11 +23,9 @@ router.post(
     shasum.update(JSON.stringify(req.body))
     const digest = shasum.digest('hex')
 
-    console.log(digest, req.headers['x-razorpay-signature'])
 
     try {
       if (digest === req.headers['x-razorpay-signature']) {
-        console.log('request is legit')
         // process it
         payment = new Payment({ payment: req.body })
         await payment.save();

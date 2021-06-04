@@ -6,9 +6,9 @@ const app = express();
 //Connect to DB
 connectDB();
 
-app.get('/', (req, res) => {
-    res.json({ "msg": "Welcome to my shopping App" });
-})
+// app.get('/', (req, res) => {
+//     res.json({ "msg": "Welcome to my shopping App" });
+// })
 
 // Init Middleware to read request body
 app.use(express.json({ extended: false }))
@@ -21,6 +21,16 @@ app.use('/api/orders', require('./routes/orders'));
 app.use('/api/cart', require('./routes/cart'));
 app.use('/api/address', require('./routes/address'));
 app.use('/api/payments', require('./routes/payments'));
+
+// Serve static assets in production
+if (process.env.NODE_ENV === 'production') {
+    // Set static folder
+    app.use(express.static('client/build'));
+
+    app.get('*', (req, res) =>
+        res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
+    );
+}
 
 const PORT = process.env.PORT || 5000;
 

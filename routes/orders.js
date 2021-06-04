@@ -98,7 +98,7 @@ router.post(
         item.image = productItem.image;
         orderItems.push(item);
       }
-      console.log(orderItems);
+      // console.log(orderItems);
       const { totalPrice, status, address } = req.body;
 
       let AddressID = await Address.findById(address);
@@ -119,7 +119,7 @@ router.post(
 
 
       const response = await razorpay.orders.create(options);
-      console.log(response)
+      // console.log(response)
       const newOrder = new Order({
         orderItems, totalPrice, status, address, currency, razorpayOrderID: response.id,
         user: req.user.id,

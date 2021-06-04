@@ -5,7 +5,7 @@ const Home = props => {
     //const { } = props;
     return (
         <>
-            <div className="carousel carousel-slider center">
+            <div className="carousel carousel-slider center" style={{ minHeight: '80vh' }}>
                 <Link to="/listing/Rings" className="carousel-item white-text" style={{ backgroundImage: `url(/images/pink-butterfly-ring.jpg)` }}>
                     <p className="white-text">Explore</p>
                     <h2>Rings</h2>

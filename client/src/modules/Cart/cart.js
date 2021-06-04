@@ -15,7 +15,9 @@ class Cart extends Component {
 
   render() {
     const { cartItems, loader, removeCartItem, error, totalPrice } = this.props;
-    if (cartItems.length < 1 || error) {
+    if (!localStorage.getItem('token')) {
+      return <div>You are not logged in. <Link to="/login">Login</Link> to continue</div>
+    } else if (cartItems.length < 1 || error) {
       return <div>You have no products in your cart.
         Go to <Link to='/listing'>Products</Link> to add.
       </div>
